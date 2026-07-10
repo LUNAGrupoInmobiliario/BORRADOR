@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MaqRent | Control de maquinaria pesada</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span>MR</span><strong>MaqRent</strong></div>
+    <nav>
+      <button class="nav active" data-view="dashboard">Dashboard</button>
+      <button class="nav" data-view="maquinaria">Maquinaria</button>
+      <button class="nav" data-view="rentas">Rentas</button>
+      <button class="nav" data-view="clientes">Clientes</button>
+    </nav>
+    <small>MVP operativo · v1.0</small>
+  </aside>
+
+  <main>
+    <header>
+      <div>
+        <p class="eyebrow">OPERACIÓN CENTRAL</p>
+        <h1 id="view-title">Dashboard ejecutivo</h1>
+      </div>
+      <button class="primary" id="new-rental">+ Nueva renta</button>
+    </header>
+
+    <section id="dashboard" class="view active">
+      <div class="kpis">
+        <article><span>Ingresos estimados</span><strong id="kpi-income">$0</strong><small>Rentas activas</small></article>
+        <article><span>Equipos rentados</span><strong id="kpi-rented">0</strong><small id="kpi-utilization">0% utilización</small></article>
+        <article><span>Equipos disponibles</span><strong id="kpi-available">0</strong><small>Listos para asignar</small></article>
+        <article><span>Clientes</span><strong id="kpi-clients">0</strong><small>Base comercial</small></article>
+      </div>
+      <div class="grid-2">
+        <article class="panel">
+          <div class="panel-head"><h2>Rentas activas</h2><span class="badge">En curso</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Equipo</th><th>Fin</th><th>Total</th></tr></thead><tbody id="dashboard-rentals"></tbody></table></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><h2>Disponibilidad</h2><span class="badge neutral">Flota</span></div>
+          <div id="availability-list" class="availability"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="maquinaria" class="view">
+      <div class="toolbar"><input id="machine-search" placeholder="Buscar maquinaria..." /><button class="secondary" id="add-machine">+ Agregar equipo</button></div>
+      <div id="machine-grid" class="cards"></div>
+    </section>
+
+    <section id="rentas" class="view">
+      <article class="panel"><div class="table-wrap"><table><thead><tr><th>Folio</th><th>Cliente</th><th>Equipo</th><th>Periodo</th><th>Estado</th><th>Total</th></tr></thead><tbody id="rentals-table"></tbody></table></div></article>
+    </section>
+
+    <section id="clientes" class="view">
+      <div class="toolbar"><input id="client-search" placeholder="Buscar cliente..." /><button class="secondary" id="add-client">+ Agregar cliente</button></div>
+      <div id="client-grid" class="cards"></div>
+    </section>
+  </main>
+
+  <dialog id="rental-dialog">
+    <form id="rental-form" method="dialog">
+      <div class="modal-head"><h2>Nueva renta</h2><button type="button" class="icon" data-close>×</button></div>
+      <label>Cliente<select id="rental-client" required></select></label>
+      <label>Maquinaria<select id="rental-machine" required></select></label>
+      <div class="form-grid"><label>Fecha inicio<input id="rental-start" type="date" required /></label><label>Días<input id="rental-days" type="number" min="1" value="1" required /></label></div>
+      <label>Obra / ubicación<input id="rental-location" required placeholder="Ej. Colotepec, Oaxaca" /></label>
+      <div class="modal-actions"><button type="button" class="ghost" data-close>Cancelar</button><button class="primary" type="submit">Crear renta</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="simple-dialog">
+    <form id="simple-form" method="dialog">
+      <div class="modal-head"><h2 id="simple-title">Nuevo registro</h2><button type="button" class="icon" data-simple-close>×</button></div>
+      <div id="simple-fields"></div>
+      <div class="modal-actions"><button type="button" class="ghost" data-simple-close>Cancelar</button><button class="primary" type="submit">Guardar</button></div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
